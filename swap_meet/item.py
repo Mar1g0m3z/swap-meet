@@ -9,7 +9,7 @@ class Item:
             self.id = id
 
         self.condition = condition
-        self.age = age
+        # self.age = age
         
 
     def get_category(self):
