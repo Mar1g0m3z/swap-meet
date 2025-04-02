@@ -9,6 +9,7 @@ class Item:
             self.id = id
 
         self.condition = condition
+        self.age = age
         
 
     def get_category(self):
@@ -18,7 +19,6 @@ class Item:
         return f"An object of type Item with id {self.id}."
     
     def condition_description(self):
-        # self.condition = condition
 
         if self.condition == 1:
             return "Used by trolls, better burn it"
