@@ -12,8 +12,8 @@ class Item:
 
         self.condition = condition
         
-        if not isinstance(age, int):
-            raise TypeError("Age should be an integer")
+        if isinstance(age, str):
+            raise TypeError("Age should be an number")
         self.age = age
         
 
