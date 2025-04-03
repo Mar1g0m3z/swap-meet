@@ -294,3 +294,37 @@ def test_swap_best_by_category_no_other_match_is_false():
     # - That result is falsy
     # - That tai and jesse's inventories are the correct length
     # - That all the correct items are in tai and jesse's inventories
+
+# Unit tests for 'age' attribute
+
+def test_get_newest_basic():
+    item_a = Clothing(age = 80)
+    item_b = Electronics(age = 3)
+    item_c = Clothing(age = 10)
+    item_d = Decor(age = 25)
+    item_e = Item(age = 0.5)
+    vendor = Vendor(
+        inventory=[item_a, item_b, item_c, item_d, item_e]
+    )
+
+    item = vendor.get_newest()
+
+    assert item == item_e
+
+
+def test_get_newest_default_age():
+    item_a = Clothing()
+    item_b = Item()
+    item_c = Decor()
+    vendor = Vendor(
+        inventory=[item_a, item_b, item_c]
+    )
+
+    result = vendor.get_newest()
+
+    assert result == None
+
+def test_item_str_age():
+
+    with pytest.raises(TypeError):
+        item = Item(age="12345")
