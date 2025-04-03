@@ -55,3 +55,8 @@ def test_get_item_by_id_no_matching():
     assert item_a in items
     assert item_b in items
     assert item_c in items
+
+def test_items_use_str_id():
+
+    with pytest.raises(TypeError):
+        item = Item(id="12345")
