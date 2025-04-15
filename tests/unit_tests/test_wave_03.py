@@ -136,5 +136,5 @@ def test_swap_items_from_their_empty_returns_false():
     nobodys_item = Item()
 
     result = fatimah.swap_items(jolie, item_b, nobodys_item)
-
-    result == False
+    assert result == False
+    assert fatimah.inventory == [item_a, item_b, item_c]

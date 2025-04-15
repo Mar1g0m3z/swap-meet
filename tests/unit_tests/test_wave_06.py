@@ -115,9 +115,12 @@ def test_swap_best_by_category():
     assert result is True
     assert len(jesse.inventory) == 3
     assert len(tai.inventory) == 3
-    assert jesse.inventory == [item_d, item_e, item_c]
-    assert tai.inventory == [item_a, item_b, item_f]
-    
+    assert item_c in jesse.inventory
+    assert item_d in jesse.inventory
+    assert item_e in jesse.inventory
+    assert item_a in tai.inventory
+    assert item_b in tai.inventory
+    assert item_f in tai.inventory
     # raise Exception("Complete this test according to comments below.")
     # *********************************************************************
     # ****** Complete Assert Portion of this test **********
@@ -154,8 +157,14 @@ def test_swap_best_by_category_reordered():
     assert result is True
     assert len(jesse.inventory) == 3
     assert len(tai.inventory) == 3
-    assert jesse.inventory == [item_e, item_d, item_c]
-    assert tai.inventory == [item_b, item_a, item_f]
+    assert item_c in jesse.inventory
+    assert item_d in jesse.inventory
+    assert item_e in jesse.inventory
+    assert item_f not in jesse.inventory
+    assert item_a in tai.inventory
+    assert item_b in tai.inventory
+    assert item_f in tai.inventory
+    assert item_c not in tai.inventory
 
     # raise Exception("Complete this test according to comments below.")
     # *********************************************************************
@@ -242,8 +251,6 @@ def test_swap_best_by_category_no_match_is_false():
         their_priority="Clothing"
     )
     assert result is False
-    assert len(jesse.inventory) == 3
-    assert len(tai.inventory) == 3
     assert jesse.inventory == [item_d, item_e, item_f]
     assert tai.inventory == [item_a, item_b, item_c]
 
@@ -281,8 +288,6 @@ def test_swap_best_by_category_no_other_match_is_false():
     )
 
     assert result is False
-    assert len(jesse.inventory) == 3
-    assert len(tai.inventory) == 3
     assert jesse.inventory == [item_f, item_e, item_d]
     assert tai.inventory == [item_c, item_b, item_a]
 
@@ -294,3 +299,37 @@ def test_swap_best_by_category_no_other_match_is_false():
     # - That result is falsy
     # - That tai and jesse's inventories are the correct length
     # - That all the correct items are in tai and jesse's inventories
+
+# Unit tests for 'age' attribute
+
+def test_get_newest_basic():
+    item_a = Clothing(age = 80)
+    item_b = Electronics(age = 3)
+    item_c = Clothing(age = 10)
+    item_d = Decor(age = 25)
+    item_e = Item(age = 0.5)
+    vendor = Vendor(
+        inventory=[item_a, item_b, item_c, item_d, item_e]
+    )
+
+    item = vendor.get_newest()
+
+    assert item == item_e
+
+
+def test_get_newest_default_age():
+    item_a = Clothing()
+    item_b = Item()
+    item_c = Decor()
+    vendor = Vendor(
+        inventory=[item_a, item_b, item_c]
+    )
+
+    result = vendor.get_newest()
+
+    assert result == None
+
+def test_item_str_age():
+
+    with pytest.raises(TypeError):
+        item = Item(age="12345")
