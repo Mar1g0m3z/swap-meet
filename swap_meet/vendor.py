@@ -2,7 +2,7 @@ class Vendor:
     def __init__(self, inventory=None):
         if inventory is None:
             self.inventory = []
-        else:
+        else: 
             self.inventory = inventory
 
     def add(self, item):
@@ -10,10 +10,11 @@ class Vendor:
         return item
 
     def remove(self, item):
-        if item in self.inventory:
-            self.inventory.remove(item)
-            return item
-        return False
+        if item not in self.inventory:
+            return False
+
+        self.inventory.remove(item)
+        return item
 
     def get_by_id(self, id):
         for item in self.inventory:
@@ -37,23 +38,13 @@ class Vendor:
         if not self.inventory or not other_vendor.inventory:
             return False
         
-        first_it_self = self.inventory[0]
-        self.inventory.remove(self.inventory[0])
-        other_vendor.inventory.insert(0, first_it_self)
-
-        first_it_vendor = other_vendor.inventory[1]
-        other_vendor.inventory.remove(other_vendor.inventory[1])
-        self.inventory.insert(0, first_it_vendor)
+        other_vendor.inventory.append(self.inventory.pop(0))
+        self.inventory.append(other_vendor.inventory.pop(0))
         
         return True
     
     def get_by_category(self, category):
-        items_category = []
-        for item in self.inventory:
-            if item.get_category() == category:
-                items_category.append(item)
-                
-        return items_category
+        return [item for item in self.inventory if item.get_category() == category]
     
     def get_best_by_category(self, category):
         items = self.get_by_category(category)
@@ -80,7 +71,7 @@ class Vendor:
 
         result = None
         for item in self.inventory:
-            if item.age > 0 and (result == None or item.age < result.age):
+            if item.age and (result == None or item.age < result.age):
                 result = item
                 
         return result

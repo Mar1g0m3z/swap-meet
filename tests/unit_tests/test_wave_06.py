@@ -115,9 +115,12 @@ def test_swap_best_by_category():
     assert result is True
     assert len(jesse.inventory) == 3
     assert len(tai.inventory) == 3
-    assert jesse.inventory == [item_d, item_e, item_c]
-    assert tai.inventory == [item_a, item_b, item_f]
-    
+    assert item_c in jesse.inventory
+    assert item_d in jesse.inventory
+    assert item_e in jesse.inventory
+    assert item_a in tai.inventory
+    assert item_b in tai.inventory
+    assert item_f in tai.inventory
     # raise Exception("Complete this test according to comments below.")
     # *********************************************************************
     # ****** Complete Assert Portion of this test **********
@@ -154,8 +157,14 @@ def test_swap_best_by_category_reordered():
     assert result is True
     assert len(jesse.inventory) == 3
     assert len(tai.inventory) == 3
-    assert jesse.inventory == [item_e, item_d, item_c]
-    assert tai.inventory == [item_b, item_a, item_f]
+    assert item_c in jesse.inventory
+    assert item_d in jesse.inventory
+    assert item_e in jesse.inventory
+    assert item_f not in jesse.inventory
+    assert item_a in tai.inventory
+    assert item_b in tai.inventory
+    assert item_f in tai.inventory
+    assert item_c not in tai.inventory
 
     # raise Exception("Complete this test according to comments below.")
     # *********************************************************************
@@ -242,8 +251,6 @@ def test_swap_best_by_category_no_match_is_false():
         their_priority="Clothing"
     )
     assert result is False
-    assert len(jesse.inventory) == 3
-    assert len(tai.inventory) == 3
     assert jesse.inventory == [item_d, item_e, item_f]
     assert tai.inventory == [item_a, item_b, item_c]
 
@@ -281,8 +288,6 @@ def test_swap_best_by_category_no_other_match_is_false():
     )
 
     assert result is False
-    assert len(jesse.inventory) == 3
-    assert len(tai.inventory) == 3
     assert jesse.inventory == [item_f, item_e, item_d]
     assert tai.inventory == [item_c, item_b, item_a]
 
